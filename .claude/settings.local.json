@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//home/nin/.claude/**)",
+      "Read(//home/nin/.claude/work-olx/contexts/**)"
+    ]
+  }
+}

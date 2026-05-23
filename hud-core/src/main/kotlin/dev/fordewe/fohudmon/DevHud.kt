@@ -5,14 +5,20 @@ import android.app.Application
 object DevHud {
 
     private var overlay: HudOverlay? = null
+    val isInstalled: Boolean get() = overlay != null
 
     fun install(app: Application, config: HudConfig = HudConfig()) {
-        overlay = HudOverlay(app, config).also { it.show() }
+        if (isInstalled) return
+        val newOverlay = HudOverlay(app, config)
+        if (newOverlay.show()) overlay = newOverlay
     }
 
     fun install(app: Application, block: HudConfig.() -> HudConfig) {
         install(app, HudConfig().block())
     }
 
-    fun dismiss() = overlay?.hide()
+    fun dismiss() {
+        overlay?.hide()
+        overlay = null
+    }
 }

@@ -1,9 +1,7 @@
 package dev.fordewe.fohudmon
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.PixelFormat
-import android.net.Uri
 import android.provider.Settings
 import android.view.Gravity
 import android.view.WindowManager
@@ -25,11 +23,10 @@ class HudOverlay(
     private lateinit var hudView: HudView
     private var pollingJob: Job? = null
 
-    fun show() {
-        if (!Settings.canDrawOverlays(context)) {
-            redirectToPermissionSettings()
-            return
-        }
+    // Returns false if SYSTEM_ALERT_WINDOW permission is not granted.
+    // Caller (Activity) is responsible for redirecting to permission settings.
+    fun show(): Boolean {
+        if (!Settings.canDrawOverlays(context)) return false
 
         collector.init()
         fpsMonitor.start()
@@ -49,6 +46,7 @@ class HudOverlay(
 
         windowManager.addView(hudView, params)
         startPolling()
+        return true
     }
 
     fun hide() {
@@ -67,16 +65,6 @@ class HudOverlay(
                 delay(config.updateIntervalMs)
             }
         }
-    }
-
-    private fun redirectToPermissionSettings() {
-        val intent = Intent(
-            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-            Uri.parse("package:${context.packageName}"),
-        ).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        context.startActivity(intent)
     }
 }
 

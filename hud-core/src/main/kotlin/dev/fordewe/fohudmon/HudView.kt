@@ -38,6 +38,7 @@ class HudView(context: Context, private val config: HudConfig) : View(context) {
         if (config.showNetwork) rows += " ↑ " to formatBytes(metrics.netTxBps) + "/s"
         if (config.showStorage) rows += "DSK" to formatBytes(metrics.storageFreeBytes) + " free"
         if (config.showThreads) rows += "THR" to "${metrics.threadCount}"
+        requestLayout()
         invalidate()
     }
 
