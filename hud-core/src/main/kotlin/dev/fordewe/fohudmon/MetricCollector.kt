@@ -3,7 +3,7 @@ package dev.fordewe.fohudmon
 import android.content.Context
 import android.os.StatFs
 
-data class Metrics(
+internal data class Metrics(
     val cpuAppPercent: Float    = 0f,
     val cpuSysPercent: Float    = 0f,
     val ramRssKb: Long          = 0L,
@@ -16,7 +16,7 @@ data class Metrics(
     val fps: Float              = 0f,
 )
 
-class MetricCollector(
+internal class MetricCollector(
     private val context: Context,
     private val intervalMs: Long = 500L,
 ) {

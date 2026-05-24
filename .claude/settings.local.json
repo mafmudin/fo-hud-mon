@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Read(//home/nin/.claude/**)",
-      "Read(//home/nin/.claude/work-olx/contexts/**)"
+      "Read(//home/nin/.claude/work-olx/contexts/**)",
+      "Bash(./gradlew tasks *)",
+      "Bash(./gradlew :hud-core:tasks)",
+      "Bash(./gradlew :hud-core:tasks --no-daemon)",
+      "Bash(./gradlew --stop)",
+      "Bash(./gradlew help *)"
     ]
   }
 }

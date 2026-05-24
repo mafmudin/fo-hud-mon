@@ -2,7 +2,7 @@ package dev.fordewe.fohudmon
 
 import android.view.Choreographer
 
-class FpsMonitor {
+internal class FpsMonitor {
     private var lastFrameTimeNs: Long = 0L
     private var currentFps: Float = 0f
     private var isRunning = false

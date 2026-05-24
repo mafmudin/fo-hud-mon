@@ -8,7 +8,7 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.view.View
 
-class HudView(context: Context, private val config: HudConfig) : View(context) {
+internal class HudView(context: Context, private val config: HudConfig) : View(context) {
 
     private val rows = mutableListOf<Pair<String, String>>()
 

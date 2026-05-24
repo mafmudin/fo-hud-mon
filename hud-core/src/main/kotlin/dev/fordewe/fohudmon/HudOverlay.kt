@@ -13,7 +13,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HudOverlay(
+internal class HudOverlay(
     private val context: Context,
     private val config: HudConfig,
 ) {

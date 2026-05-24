@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    `maven-publish`
 }
 
 android {
@@ -19,6 +20,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
@@ -30,4 +36,15 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                artifactId = "hud-core"
+            }
+        }
+    }
 }
