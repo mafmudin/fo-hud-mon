@@ -10,6 +10,7 @@ data class HudConfig(
     val updateIntervalMs: Long = 500L,
     val position: HudPosition  = HudPosition.TOP_END,
     val opacity: Float         = 0.85f,
+    val logCapacity: Int       = 1200,
 )
 
 enum class HudPosition {

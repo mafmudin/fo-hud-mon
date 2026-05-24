@@ -16,6 +16,15 @@ android {
         }
     }
 
+    buildTypes {
+        debug {
+            ndk {
+                // Full DWARF symbols — profiler can show function names + line numbers in C++
+                debugSymbolLevel = "FULL"
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

@@ -20,6 +20,7 @@ internal class HudOverlay(
     private val windowManager = context.getSystemService(WindowManager::class.java)
     private val collector     = MetricCollector(context, config.updateIntervalMs)
     private val fpsMonitor    = FpsMonitor()
+    internal val logger       = MetricLogger(config.logCapacity)
     private lateinit var hudView: HudView
     private var pollingJob: Job? = null
 
@@ -55,10 +56,13 @@ internal class HudOverlay(
         if (::hudView.isInitialized) windowManager.removeView(hudView)
     }
 
+    internal fun exportLog() = logger.exportToFile(context)
+
     private fun startPolling() {
         pollingJob = CoroutineScope(Dispatchers.IO).launch {
             while (isActive) {
                 val metrics = collector.collect().copy(fps = fpsMonitor.getFps())
+                logger.append(metrics)
                 withContext(Dispatchers.Main) {
                     if (::hudView.isInitialized) hudView.update(metrics)
                 }
