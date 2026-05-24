@@ -1,6 +1,7 @@
 jdk:
   - openjdk17
 before_install:
-  - touch local.properties
   - echo "sdk.dir=$ANDROID_HOME" > local.properties
   - $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;27.0.12077973" "cmake;3.22.1"
+install:
+  - ./gradlew :hud-core:publishToMavenLocal :hud-noop:publishToMavenLocal

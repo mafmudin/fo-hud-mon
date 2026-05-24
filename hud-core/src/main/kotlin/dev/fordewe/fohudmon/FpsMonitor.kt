@@ -5,7 +5,7 @@ import android.view.Choreographer
 internal class FpsMonitor {
     private var frameCount = 0
     private var windowStartNs = 0L
-    private var currentFps: Float = 0f
+    @Volatile private var currentFps: Float = 0f
     private var isRunning = false
 
     private val frameCallback = object : Choreographer.FrameCallback {

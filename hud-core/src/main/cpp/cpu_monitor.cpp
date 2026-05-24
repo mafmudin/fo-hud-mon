@@ -11,6 +11,7 @@ static long prevProcTicks           = 0;
 static long prevTotalCpu            = 0;
 static long prevIdleCpu             = 0;
 static struct timespec prevWallTime = {0, 0};
+static long cachedHz                = 0;
 
 static long readProcCpuTicks() {
     std::string stat = readProcFile("/proc/self/stat");
@@ -43,6 +44,8 @@ static SystemCpuTicks readSystemCpuTicks() {
 }
 
 void initCpuSampling() {
+    cachedHz      = sysconf(_SC_CLK_TCK);
+    if (cachedHz < 1) cachedHz = 100;
     prevProcTicks = readProcCpuTicks();
     auto sys      = readSystemCpuTicks();
     prevTotalCpu  = sys.total;
@@ -72,11 +75,9 @@ CpuInfo getCpuInfo() {
 
     if (wallMs > 0) {
         // Use wall clock as denominator to avoid CONFIG_NO_HZ idle-undercount on Android.
-        // sysconf(_SC_CLK_TCK) gives kernel HZ (typically 100 on Android).
+        // cachedHz = kernel HZ (sysconf _SC_CLK_TCK, cached at init — never changes at runtime).
         // expectedTicks = how many jiffies one core would tick in wallMs.
-        long hz = sysconf(_SC_CLK_TCK);
-        if (hz < 1) hz = 100;
-        float expectedPerCoreTicks = (float)(wallMs * hz) / 1000.0f;
+        float expectedPerCoreTicks = (float)(wallMs * cachedHz) / 1000.0f;
         info.usagePercent = 100.0f * (float)deltaProcTicks / expectedPerCoreTicks;
     }
 

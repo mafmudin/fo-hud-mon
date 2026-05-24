@@ -8,7 +8,8 @@
       "Bash(./gradlew :hud-core:tasks --no-daemon)",
       "Bash(./gradlew --stop)",
       "Bash(./gradlew help *)",
-      "Bash(xargs cat)"
+      "Bash(xargs cat)",
+      "Bash(gh pr *)"
     ]
   }
 }

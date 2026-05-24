@@ -142,7 +142,7 @@ class StressTests {
                         while (isActive && stream.read(buf) != -1) Unit
                     }
                     conn.disconnect()
-                } catch (_: Exception) {
+                } catch (_: java.io.IOException) {
                     delay(1000L)
                 }
             }

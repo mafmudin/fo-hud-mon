@@ -69,7 +69,7 @@ internal class MetricCollector(
         val nowMs    = System.currentTimeMillis()
         val elapsed  = nowMs - prevNetTimeMs
 
-        if (curRx == TrafficStats.UNSUPPORTED.toLong() || elapsed <= 0L) {
+        if (curRx == TrafficStats.UNSUPPORTED.toLong() || curTx == TrafficStats.UNSUPPORTED.toLong() || elapsed <= 0L) {
             return Pair(0L, 0L)
         }
 
