@@ -9,7 +9,8 @@
       "Bash(./gradlew --stop)",
       "Bash(./gradlew help *)",
       "Bash(xargs cat)",
-      "Bash(gh pr *)"
+      "Bash(gh pr *)",
+      "Bash(git update-index *)"
     ]
   }
 }
